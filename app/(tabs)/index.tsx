@@ -1,98 +1,185 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useState } from "react";
+import { Text, View, TextInput, TouchableOpacity, ScrollView } from "react-native";
+import Svg, {Path} from "react-native-svg";
+import { Image } from "expo-image";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+export default function Index() {
+  const [fromAmount, setFromAmount] = useState("0");
+  const [toAmount, setToAmount] = useState("0");
+  const [recipientAddress, setRecipientAddress] = useState("");
+  const [selectedTab, setSelectedTab] = useState<"BRIDGE" | "SWAP" | "SEND">("BRIDGE");
 
-export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <ScrollView className="flex-1 bg-[#0c0c0c]">
+      <View className="flex-1 px-4 pt-16 pb-8">
+        {/* Header Tabs */}
+        <View className="flex-row mb-8 gap-4">
+          <TouchableOpacity
+            onPress={() => setSelectedTab("BRIDGE")}
+            className={`px-8 py-4 rounded-xl border ${
+              selectedTab === "BRIDGE"
+                ? "bg-[#5024ff] border-[#682ad5]"
+                : "bg-[#ffffff0d] border-[#ffffff0d]"
+            }`}
+          >
+            <Text
+              className={`text-lg font-jetbrains-medium tracking-wider ${
+                selectedTab === "BRIDGE" ? "text-white" : "text-gray-400"
+              }`}
+            >
+              BRIDGE
+            </Text>
+          </TouchableOpacity>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+          <TouchableOpacity
+            onPress={() => setSelectedTab("SWAP")}
+            className={`px-8 py-4 rounded-xl border ${
+              selectedTab === "SWAP"
+                ? "bg-[#5024ff] border-[#682ad5]"
+                : "bg-[#ffffff0d] border-[#ffffff0d]"
+            }`}
+          >
+            <Text
+              className={`text-lg font-jetbrains-medium tracking-wider ${
+                selectedTab === "SWAP" ? "text-white" : "text-gray-400"
+              }`}
+            >
+              SWAP
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => setSelectedTab("SEND")}
+            className={`px-8 py-4 rounded-xl border ${
+              selectedTab === "SEND"
+                ? "bg-[#5024ff] border-[#682ad5]"
+                : "bg-[#ffffff0d] border-[#ffffff0d]"
+            }`}
+          >
+            <Text
+              className={`text-lg font-jetbrains-medium tracking-wider ${
+                selectedTab === "SEND" ? "text-white" : "text-gray-400"
+              }`}
+            >
+              SEND
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Encrypted Balance Section */}
+        <View className="mb-6">
+          <Text className="text-gray-400 text-lg mb-3 font-jetbrains">Encrypted Balance</Text>
+          <View className="flex-row items-center gap-3 mb-4">
+            <View className="bg-[#ffffff0d] px-4 py-2 rounded-lg border border-gray-700">
+              <Text className="text-gray-300 font-jetbrains">
+                <Image
+                  source={require("@/assets/icons/wallet.svg")}
+                  style={{ width: 16, height: 16 }}
+                  contentFit="contain"
+                  tintColor="##ffffff66"
+                />
+                0.0000
+              </Text>
+            </View>
+            <View className="bg-[#ffffff0d] px-4 py-2 rounded-lg border border-gray-700">
+              <Text className="text-gray-400 font-jetbrains">50%</Text>
+            </View>
+            <TouchableOpacity className="bg-[#ffffff0d] px-4 py-2 rounded-lg border border-gray-700">
+              <Text className="text-gray-400 font-jetbrains">MAX</Text>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity className="bg-[#5024ff] py-4 rounded-xl mb-6">
+            <Text className="text-white text-center font-jetbrains-medium text-base tracking-wider">
+              ADD ENCRYPTED ASSET
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* From Section */}
+        <View className="bg-[#ffffff0d] rounded-2xl p-6 mb-4 border border-gray-800">
+          <View className="flex-row justify-between items-start mb-4">
+            <View className="flex-1">
+              <Text className="text-6xl font-jetbrains text-white mb-2">0</Text>
+              <Text className="text-gray-500 text-base font-jetbrains">$0.000</Text>
+            </View>
+            
+            <TouchableOpacity className="bg-[#ffffff0d] px-4 py-3 rounded-xl border border-gray-700 flex-row items-center gap-2">
+              <Image
+                source={"https://solana.com/src/img/branding/solanaLogoMark.svg"}
+                style={{ width: 20, height: 20 }}
+                contentFit="contain"
+                // tintColor="#5024ff"
+              />
+              <Text className="text-white font-jetbrains-medium text-base">SOL</Text>
+              <Text className="text-gray-400">▼</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Swap Icon */}
+        <View className="items-center -my-2 z-10">
+          <View className="bg-[#0c0c0c] p-3 rounded-full border-2 border-[#5024ff]">
+            <Image
+              source={require("@/assets/icons/icons-swap.png")}
+              style={{ width: 16, height: 16 }}
+              contentFit="contain"
+              tintColor="#5024ff" 
+            />
+          </View>
+        </View>
+
+        {/* To Section */}
+        <View className="bg-[#ffffff0d] rounded-2xl p-6 mb-6 border border-gray-800">
+          <View className="flex-row justify-between items-start mb-4">
+            <View className="flex-1">
+              <Text className="text-6xl font-jetbrains text-white mb-2">0</Text>
+              <Text className="text-gray-500 text-base font-jetbrains">$0.000</Text>
+            </View>
+            
+            <TouchableOpacity className="bg-[#ffffff0d] px-4 py-3 rounded-xl border border-gray-700 flex-row items-center gap-2">
+              <Image
+                source={"https://z.cash/wp-content/uploads/2023/03/zcash-logo.gif"}
+                style={{ width: 16, height: 16 }}
+                contentFit="fill"
+                className="bg-yellow-500"
+              />
+              <Text className="text-white font-jetbrains-medium text-base">ZEC</Text>
+              <Text className="text-gray-400">▼</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Recipient Address */}
+        <View className="mb-6">
+          <View className="bg-[#ffffff0d] rounded-2xl p-5 border border-gray-800 flex-row items-center justify-between">
+            <TextInput
+              value={recipientAddress}
+              onChangeText={setRecipientAddress}
+              placeholder="Enter Recipient Address"
+              placeholderTextColor="#666"
+              className="flex-1 text-gray-400 text-base font-jetbrains"
+            />
+            <TouchableOpacity className="ml-3">
+              <Text className="text-gray-500 font-jetbrains-medium">PASTE</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Footer Message */}
+        <View className="items-center mb-6">
+          <Text className="text-gray-500 text-base font-jetbrains">
+            With <Text className="text-red-500">❤️</Text> Near Intent
+          </Text>
+        </View>
+
+        {/* Enter Amount Button */}
+        <TouchableOpacity className="bg-[#ffffff0d] py-6 rounded-2xl border border-gray-800">
+          <Text className="text-gray-400 text-center text-2xl font-jetbrains tracking-widest">
+            ENTER AMOUNT
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
