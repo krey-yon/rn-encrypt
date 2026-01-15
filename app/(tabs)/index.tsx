@@ -8,6 +8,7 @@ import {
   Linking
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar"
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
 
@@ -18,19 +19,9 @@ export default function Index() {
 
   const quickActions = [
     {
-      id: "bridge",
-      title: "Bridge",
-      description: "Cross-chain transfers...",
-      icon: "git-branch-outline",
-      color: "from-purple-500 to-indigo-500",
-      onPress: () => {
-        router.push("/swap");
-      },
-    },
-    {
       id: "swap",
       title: "Swap",
-      description: "Exchange tokens...",
+      description: "Bridge, Swap, Send Tokens...",
       icon: "swap-horizontal",
       color: "from-blue-500 to-cyan-500",
       onPress: () => {
@@ -38,29 +29,40 @@ export default function Index() {
       },
     },
     {
-      id: "send",
-      title: "Send",
-      description: "Private transfers...",
-      icon: "arrow-up-circle-outline",
-      color: "from-pink-500 to-rose-500",
+      id: "bridge",
+      title: "Wrap/Unwrap",
+      description: "Wrap/Unwrap Solana...",
+      icon: "git-branch-outline",
+      color: "from-purple-500 to-indigo-500",
       onPress: () => {
-        router.push("/send");
+        router.push("/wrap");
       },
     },
     {
       id: "encrypt",
-      title: "Encrypt",
-      description: "Wrap your assets...",
+      title: "Portfolio",
+      description: "All encrypt assets...",
       icon: "shield-checkmark-outline",
       color: "from-emerald-500 to-teal-500",
       onPress: () => {
-        router.push("/wrap");
+        router.push("/portfolio");
+      },
+    },
+    {
+      id: "send",
+      title: "Support",
+      description: "Talk to us...",
+      icon: "support-agent",
+      color: "from-pink-500 to-rose-500",
+      onPress: () => {
+        router.push("/");
       },
     },
   ];
 
   return (
     <View className="flex-1 bg-gray-50">
+      <StatusBar style="dark" />
       {/* Main Content */}
       <ScrollView
         className="flex-1"

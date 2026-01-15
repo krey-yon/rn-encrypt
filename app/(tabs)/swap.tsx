@@ -84,7 +84,7 @@ export default function Swap() {
           <View className="flex-row items-center gap-2 mb-3">
             <View className="bg-gray-100 px-3 py-2 rounded-lg flex-row items-center gap-2">
               <Image
-                source={require("../../assets/icons/encrypt.svg")}
+                source={require("../../assets/icons/wallet.svg")}
                 style={{ width: 14, height: 14 }}
                 contentFit="contain"
                 tintColor="#0c0c0c"
@@ -135,7 +135,7 @@ export default function Swap() {
         </View>
 
         {/* Swap Icon */}
-        <View className="items-center -my-2 z-10">
+        <View className="items-center -my-6 z-10">
           <TouchableOpacity className="bg-white p-2 rounded-full shadow-md border-2 border-gray-200">
             <Ionicons name="swap-vertical" size={20} color="#0c0c0c" />
           </TouchableOpacity>
@@ -159,7 +159,11 @@ export default function Swap() {
               <Text className="text-gray-400 text-xs font-jetbrains mt-1">$0.00</Text>
             </View>
             <TouchableOpacity className="bg-gray-100 px-3 py-2 rounded-lg flex-row items-center gap-2 ml-3">
-              <View className="w-4 h-4 bg-yellow-400 rounded-full" />
+              <Image
+                source={"https://app.encifher.io/_next/image?url=%2Fzcash.png&w=32&q=75&dpl=dpl_8aDnzYCMiiA6Svska8v5qCkLkEU5"}
+                style={{ width: 22, height: 22 }}
+                contentFit="contain"
+              />
               <Text className="text-[#0c0c0c] font-jetbrains-medium text-sm">ZEC</Text>
               <Ionicons name="chevron-down" size={14} color="#6b7280" />
             </TouchableOpacity>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar"
 import { Ionicons } from "@expo/vector-icons";
 import PrivateTransaction from "@/components/private-transaction";
 import WrappedAssets from "@/components/wrap-assests-card";
@@ -15,6 +16,7 @@ export default function Portfolio() {
 
   return (
     <View className="flex-1 bg-[#0c0c0c]">
+       <StatusBar style="light" />
       {/* Dark Header Section */}
       <View className="px-6 pt-16 pb-8">
         {/* Back Button */}
